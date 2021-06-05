@@ -4,7 +4,8 @@ Mata kuliah Pemrograman Basis Data 2
 ## Steps 
 - copy the env file into .env, then change the configuration that you needs like baseURL, or database
 - composer install
-- php spark serve
+- exec in your shell `php spark migrate`
+- exec in your shell `php spark serve`
 
 ## Server Requirements
 
