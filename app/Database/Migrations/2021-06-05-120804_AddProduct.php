@@ -26,11 +26,11 @@ class AddProduct extends Migration
         ]);
 
         $this->forge->addKey('product_id', true);
-        $this->forge->createTable('product');
+        $this->forge->createTable('products');
 	}
 
 	public function down()
 	{
-		$this->forge->dropTable('product');
+		$this->forge->dropTable('products');
 	}
 }
