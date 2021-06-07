@@ -72,4 +72,17 @@ class Products extends BaseController
             return $this->failValidationErrors($this->validation->getErrors());
         }
     }
+
+    public function deleteProduct($id = null)
+    {
+        if ($id === null)
+        {
+            return $this->failNotFound('Product ID cannot be null');
+        }
+
+        if ($this->productModel->delete($id))
+        {
+            $this->respondDeleted($id);
+        }
+    }
 }
