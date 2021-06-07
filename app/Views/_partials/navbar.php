@@ -9,13 +9,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="<?= base_url() ?>">Dashboard</a>
+                    <a class="nav-link <?= uri_string(true) == '' ? 'active' : '' ?>" aria-current="page" href="<?= base_url() ?>">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('products') ?>">Products</a>
+                    <a class="nav-link <?= uri_string(true) == 'products' ? 'active' : '' ?>" href="<?= base_url('products') ?>">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('about') ?>">About</a>
+                    <a class="nav-link <?= uri_string(true) == 'about' ? 'active' : '' ?>" href="<?= base_url('about') ?>">About</a>
                 </li>
             </ul>
         </div>
