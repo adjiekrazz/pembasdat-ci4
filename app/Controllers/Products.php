@@ -73,6 +73,22 @@ class Products extends BaseController
         }
     }
 
+    public function editProduct()
+    {
+        $product_data = [
+            'product_name' => $this->request->getVar('product_name'),
+            'product_price' => $this->request->getVar('product_price')
+        ];
+
+        if ($this->validation->run($product_data))
+        {
+            $this->productModel->update($this->request->getVar('product_id'), $product_data);
+            return $this->respondCreated($product_data);
+        } else {
+            return $this->failValidationErrors($this->validation->getErrors());
+        }
+    }
+
     public function deleteProduct($id = null)
     {
         if ($id === null)
