@@ -80,59 +80,58 @@
     <script src="<?= base_url('js/jquery.dataTables.min.js') ?>"></script>
     <script src="<?= base_url('js/dataTables.bootstrap5.min.js') ?>"></script>
     <script>
-        function editProduct(){
-            alert('edit product')
-        }
-
-        function deleteProduct(){
-            alert('delete product')
-        }
-
-        $.fn.dataTable.Debounce = function ( table, options ) {
-            var tableId = table.settings()[0].sTableId;
-            $('.dataTables_filter input[aria-controls="' + tableId + '"]') // select the correct input field
-                .unbind()
-                .bind('input', (delay(function (e) {
-                    table.search($(this).val()).draw();
-                    return;
-                }, 700)));
-        }
+        var product_table = null;
         
-        function delay(callback, ms) {
-            var timer = 0;
-            return function () {
-                var context = this, args = arguments;
-                clearTimeout(timer);
-                timer = setTimeout(function () {
-                    callback.apply(context, args);
-                }, ms || 0);
-            };
-        }
+        loadProduct();
 
-        var product_table = $("#product_table").DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ordering": true,
-            "ajax": {
-                "url": "products/getProducts",
-                "type": "POST"
-            },
-            "columnDefs": [
-                { "targets": [0, 2, 3], "className": "text-center" }
-            ],
-            "columns": [
-                { "data": "product_id" },
-                { "data": "product_name" },
-                { "data": "product_price" },
-                { "render": function(data, type, row){
-                    var html = '<a href="#" data-toggle="modal" onclick="return editProduct()"><span class="badge bg-success" data-toggle="tooltip" data-placement="top" title="Edit Product">Edit</span></a>&nbsp;'
-                    html += '<a href="#" data-toggle="modal" onclick="return deleteProduct()"><span class="badge bg-danger" data-toggle="tooltip" data-placement="top" title="Delete Product">Delete</span></a>'
-                    return html
-                } }
-            ]
-        })
-        
-        var debounce = new $.fn.dataTable.Debounce(product_table);
+        function loadProduct(){
+            product_table = $("#product_table").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ordering": true,
+                "ajax": {
+                    "url": "products/getProducts",
+                    "type": "POST"
+                },
+                "columnDefs": [
+                    { "targets": [0, 2, 3], "className": "text-center" }
+                ],
+                "columns": [
+                    { "data": "product_id" },
+                    { "data": "product_name" },
+                    { "data": "product_price" },
+                    { "render": function(data, type, row){
+                        var aphostrope = "'"
+                        var html = '<a href="#" data-toggle="modal" onclick="return editProduct()"><span class="badge bg-success" data-toggle="tooltip" data-placement="top" title="Edit Product">Edit</span></a>&nbsp;'
+                        html += '<a href="#" data-toggle="modal" onclick="return deleteProduct('+aphostrope+row.product_id+aphostrope+')"><span class="badge bg-danger" data-toggle="tooltip" data-placement="top" title="Delete Product">Delete</span></a>'
+                        return html
+                    } }
+                ]
+            });
+            
+            $.fn.dataTable.Debounce = function ( table, options ) {
+                var tableId = table.settings()[0].sTableId;
+                $('.dataTables_filter input[aria-controls="' + tableId + '"]') // select the correct input field
+                    .unbind()
+                    .bind('input', (delay(function (e) {
+                        table.search($(this).val()).draw();
+                        return;
+                    }, 700)));
+                }
+            
+            function delay(callback, ms) {
+                var timer = 0;
+                return function () {
+                    var context = this, args = arguments;
+                    clearTimeout(timer);
+                    timer = setTimeout(function () {
+                        callback.apply(context, args);
+                    }, ms || 0);
+                };
+            }
+
+            var debounce = new $.fn.dataTable.Debounce(product_table);
+        }
 
         $('#addData').submit(function(e){
             e.preventDefault();
@@ -146,7 +145,8 @@
                 success: function(response) {
                     $('#addModal').modal('hide');
                     product_table.ajax.reload();
-                    console.log(response)
+                    fa[0].reset()
+                    $('.add-input').val('')
                 },
                 error: function(response){
                     $('.add-input').closest('input.form-control').removeClass('is-invalid')
@@ -164,6 +164,22 @@
                 }
             })
         });
+
+        function editProduct(){
+            return
+        }
+
+        function deleteProduct(product_id){
+            $.ajax({
+                url: "products/deleteProduct/" + product_id,
+                type: "POST",
+                dataType: "JSON",
+                complete: function(response){
+                    product_table.ajax.reload();
+                    console.log(response.statusText)
+                }
+            })
+        }
     </script>
 </body>
 </html>
