@@ -73,6 +73,37 @@
         </div>
     </div>
 
+    <div class="modal fade" id="editModal" role="dialog" arial-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editLabel">Edit Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <?= form_open('products/editProduct', 'id="editData" class="needs-validation"'); ?>
+                        <input type="hidden" name="product_id" id="product_id_edit">
+                        <div class="mb-3">
+                            <label for="product_name" class="form-label">Product Name</label>
+                            <input type="text" class="form-control edit-input" id="product_name_edit" name="product_name" autocomplete="off">
+                            <div id="product_nameEditFeedback" class="form-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="product_price" class="form-label">Product Price</label>
+                            <input type="number" class="form-control edit-input" id="product_price_edit" name="product_price" autocomplete="off">
+                            <div id="product_priceEditFeedback" class="form-feedback"></div>
+                        </div>
+                        <div class="mb-3" style="text-align: center;">
+                            <button type="submit" class="btn btn-success">Save Product</button>
+                            <button type="reset" class="btn btn-danger">Clear</button>
+                        </div>
+                    <?= form_close() ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap JS -->
     <script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
     <!-- JQuery and Datatables JS -->
@@ -101,9 +132,10 @@
                     { "data": "product_name" },
                     { "data": "product_price" },
                     { "render": function(data, type, row){
-                        var aphostrope = "'"
-                        var html = '<a href="#" data-toggle="modal" onclick="return editProduct()"><span class="badge bg-success" data-toggle="tooltip" data-placement="top" title="Edit Product">Edit</span></a>&nbsp;'
-                        html += '<a href="#" data-toggle="modal" onclick="return deleteProduct('+aphostrope+row.product_id+aphostrope+')"><span class="badge bg-danger" data-toggle="tooltip" data-placement="top" title="Delete Product">Delete</span></a>'
+                        var a = "'"
+                        var s = "', '"
+                        var html = '<a href="#editModal" data-bs-toggle="modal" onclick="return editProduct('+a+row.product_id+s+row.product_name+s+row.product_price+a+')"><span class="badge bg-success" data-toggle="tooltip" data-placement="top" title="Edit Product">Edit</span></a>&nbsp;'
+                        html += '<a href="#" onclick="return deleteProduct('+a+row.product_id+a+')"><span class="badge bg-danger" data-toggle="tooltip" data-placement="top" title="Delete Product">Delete</span></a>'
                         return html
                     } }
                 ]
@@ -165,9 +197,47 @@
             })
         });
 
-        function editProduct(){
-            return
+        function editProduct(product_id, product_name, product_price){
+            $('#editModal').on('shown.bs.modal', function(event){
+                var modal = $(this);
+                modal.find('input[id="product_id_edit"]').val(product_id)
+                modal.find('input[id="product_name_edit"]').val(product_name)
+                modal.find('input[id="product_price_edit"]').val(product_price)
+
+            });
         }
+
+        $('#editData').submit(function(e){
+            e.preventDefault();
+            var fa = $(this);
+
+            $.ajax({
+                url: 'products/editProduct',
+                type: 'POST',
+                data: fa.serialize(),
+                dataType: 'JSON',
+                success: function(response) {
+                    $('#editModal').modal('hide');
+                    product_table.ajax.reload();
+                    fa[0].reset()
+                    $('.edit-input').val('')
+                },
+                error: function(response){
+                    $('.edit-input').closest('input.form-control').removeClass('is-invalid')
+                    .addClass('is-valid').find('div.form-feedback').removeClass('invalid-feedback').addClass('valid-feedback')
+                    $.each(response.responseJSON.messages, function(key, value){
+                        var element = $('.edit-input#' + key +'_edit');
+                        element.closest('input.form-control')
+                        .removeClass('is-valid')
+                        .addClass('is-invalid');
+
+                        $('div#'+ key +'EditFeedback.form-feedback')
+                        .addClass('invalid-feedback').empty().append(value)
+                        .removeClass('valid-feedback');
+                    });
+                }
+            })
+        });
 
         function deleteProduct(product_id){
             $.ajax({
