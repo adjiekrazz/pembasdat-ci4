@@ -15,12 +15,9 @@
 
     <div class="container mt-4">
         <div class="card">
-            <div class="card-body">
-                Made with 
-                <ul>
-                    <li>CodeIgniter 4</li>
-                    <li>Bootstrap 5</li>
-                </ul>
+            <div class="card-body text-center">
+                Made with <br/>
+                CodeIgniter 4 <br/>
                 Arif Purnomo Aji - 1811012
             </div>
         </div>
