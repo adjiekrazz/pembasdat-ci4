@@ -4,8 +4,21 @@ Mata kuliah Pemrograman Basis Data 2
 ## Steps 
 - copy the env file into .env, then change the configuration that you needs like baseURL, or database
 - composer install
-- exec in your shell `php spark migrate`
+- exec in your shell `php spark migrate -all`
+- exec in your shell `php spark db:seed DatabaseSeeder`
 - exec in your shell `php spark serve`
+
+## Notes
+The default dummy users :
+- Admin Groups
+    username -> adjiekrazz@example.com
+    password -> password
+- Member Groups
+    username -> fathur@example.com
+    password -> password
+
+This myth-auth is configured without email activation.  So if you register a new user, it will automatically activated.
+
 
 ## Server Requirements
 
