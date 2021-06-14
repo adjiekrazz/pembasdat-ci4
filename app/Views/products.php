@@ -18,6 +18,7 @@
     <div class="container mt-4">
         <div class="card">
             <div class="card-body">
+                <?php if(has_permission('read')): ?>
                 <div class="row mb-3">
                     <div class="col-12">
                         <table id="product_table" class="table table-bordered" style="width:100%">
@@ -39,6 +40,9 @@
                         </div>
                     </div>
                 </div>
+                <?php else: ?>
+                <span>You don't have permissions to view resources.</span>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -51,6 +55,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
+                <?php if(has_permission('create')): ?>
                 <div class="modal-body">
                     <?= form_open('products/addProduct', 'id="addData" class="needs-validation"'); ?>
                         <div class="mb-3">
@@ -69,6 +74,13 @@
                         </div>
                     <?= form_close() ?>
                 </div>
+                <?php else: ?>
+                <div class="modal-body">
+                    <div class="modal-text">
+                        You don't have permissions to add resources.
+                    </div>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -81,6 +93,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
+                <?php if(has_permission('create')): ?>
                 <div class="modal-body">
                     <?= form_open('products/editProduct', 'id="editData" class="needs-validation"'); ?>
                         <input type="hidden" name="product_id" id="product_id_edit">
@@ -100,6 +113,39 @@
                         </div>
                     <?= form_close() ?>
                 </div>
+                <?php else: ?>
+                <div class="modal-body">
+                    <div class="modal-text">
+                        You don't have permissions to edit resources.
+                    </div>
+                </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteConfirmationModal" role="dialog" arial-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <?php if(has_permission('delete')): ?>
+                <div class="modal-body target-edited">
+                    Are you sure delete this product?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="return deleteProduct()">Delete it!</button>
+                </div>
+                <?php else: ?>
+                <div class="modal-body">
+                    <div class="modal-text">
+                        You don't have permissions to delete resources.
+                    </div>
+                </div>
+                <?php endif ?>
             </div>
         </div>
     </div>
@@ -112,6 +158,7 @@
     <script src="<?= base_url('js/dataTables.bootstrap5.min.js') ?>"></script>
     <script>
         var product_table = null;
+        var _deleteProductId = null;
         
         loadProduct();
 
@@ -135,7 +182,7 @@
                         var a = "'"
                         var s = "', '"
                         var html = '<a href="#editModal" data-bs-toggle="modal" onclick="return editProduct('+a+row.product_id+s+row.product_name+s+row.product_price+a+')"><span class="badge bg-success" data-toggle="tooltip" data-placement="top" title="Edit Product">Edit</span></a>&nbsp;'
-                        html += '<a href="#" onclick="return deleteProduct('+a+row.product_id+a+')"><span class="badge bg-danger" data-toggle="tooltip" data-placement="top" title="Delete Product">Delete</span></a>'
+                        html += '<a href="#deleteConfirmationModal" data-bs-toggle="modal" onclick="return deleteConfirm('+a+row.product_id+s+row.product_name+a+')"><span class="badge bg-danger" data-toggle="tooltip" data-placement="top" title="Delete Product">Delete</span></a>'
                         return html
                     } }
                 ]
@@ -239,16 +286,26 @@
             })
         });
 
-        function deleteProduct(product_id){
-            $.ajax({
-                url: "products/deleteProduct/" + product_id,
-                type: "POST",
-                dataType: "JSON",
-                complete: function(response){
-                    product_table.ajax.reload();
-                    console.log(response.statusText)
-                }
-            })
+        function deleteConfirm(product_id, product_name){
+            $('#deleteConfirmationModal').on('shown.bs.modal', function(event){
+                var modal = $(this);
+                modal.find('div.target-edited').replaceWith("<div class='modal-body target-edited'>Are you sure delete product " + product_name + " ?</div>")
+            });
+            _deleteProductId = product_id;
+        }
+
+        function deleteProduct(){
+            if (_deleteProductId){
+                $.ajax({
+                    url: "products/deleteProduct/" + _deleteProductId,
+                    type: "POST",
+                    dataType: "JSON",
+                    complete: function(response){
+                        product_table.ajax.reload();
+                        $('#deleteConfirmationModal').modal('hide');
+                    }
+                })
+            }
         }
     </script>
 </body>
