@@ -29,6 +29,7 @@
                     <?php if(in_groups('member')): ?>
                     <li><a class="dropdown-item" href="#" aria-disabled="true">Member</a></li>
                     <?php endif; ?>
+                    <li><a href="<?= base_url('profile') ?>" class="dropdown-item">Profile</a></li>
                     <li><a class="dropdown-item" href="<?= base_url('logout') ?>">Logout</a></li>
                 </ul>
             </ul>
