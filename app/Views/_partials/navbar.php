@@ -23,7 +23,12 @@
                     <?= user()->username ?>
                 </a>
                 <ul class="dropdown-menu mr-2" aria-labelledby="navbarDropdownMenuLink">
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <?php if(in_groups('admin')): ?>
+                    <li><a href="#" class="dropdown-item" aria-disabled="true">Admin</a></li>
+                    <?php endif; ?>
+                    <?php if(in_groups('member')): ?>
+                    <li><a class="dropdown-item" href="#" aria-disabled="true">Member</a></li>
+                    <?php endif; ?>
                     <li><a class="dropdown-item" href="<?= base_url('logout') ?>">Logout</a></li>
                 </ul>
             </ul>
