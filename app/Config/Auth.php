@@ -34,12 +34,12 @@ class Auth extends \Myth\Auth\Config\Auth
 	 * @var array
 	 */
 	public $views = [
-		'login'		   => 'Views' . DIRECTORY_SEPARATOR . 'Auth' . DIRECTORY_SEPARATOR . 'login',
-		'register'		=> 'Views' . DIRECTORY_SEPARATOR . 'Auth' . DIRECTORY_SEPARATOR . 'register',
-		'forgot'		  => 'Views' . DIRECTORY_SEPARATOR . 'Auth' . DIRECTORY_SEPARATOR . 'forgot',
-		'reset'		   => 'Views' . DIRECTORY_SEPARATOR . 'Auth' . DIRECTORY_SEPARATOR . 'reset',
-		'emailForgot'	 => 'Views' . DIRECTORY_SEPARATOR . 'Auth' . DIRECTORY_SEPARATOR . 'emails' . DIRECTORY_SEPARATOR . 'forgot',
-		'emailActivation' => 'Views' . DIRECTORY_SEPARATOR . 'Auth' . DIRECTORY_SEPARATOR . 'emails' . DIRECTORY_SEPARATOR . 'activation',
+		'login'		   => 'App' . DIRECTORY_SEPARATOR . 'Views' . DIRECTORY_SEPARATOR . 'Auth' . DIRECTORY_SEPARATOR . 'login',
+		'register'		=> 'App' . DIRECTORY_SEPARATOR . 'Views' . DIRECTORY_SEPARATOR . 'Auth' . DIRECTORY_SEPARATOR . 'register',
+		'forgot'		  => 'App' . DIRECTORY_SEPARATOR . 'Views' . DIRECTORY_SEPARATOR . 'Auth' . DIRECTORY_SEPARATOR . 'forgot',
+		'reset'		   => 'App' . DIRECTORY_SEPARATOR . 'Views' . DIRECTORY_SEPARATOR . 'Auth' . DIRECTORY_SEPARATOR . 'reset',
+		'emailForgot'	 => 'App' . DIRECTORY_SEPARATOR . 'Views' . DIRECTORY_SEPARATOR . 'Auth' . DIRECTORY_SEPARATOR . 'emails' . DIRECTORY_SEPARATOR . 'forgot',
+		'emailActivation' => 'App' . DIRECTORY_SEPARATOR . 'Views' . DIRECTORY_SEPARATOR . 'Auth' . DIRECTORY_SEPARATOR . 'emails' . DIRECTORY_SEPARATOR . 'activation',
 	];
 
 	/**
@@ -49,7 +49,7 @@ class Auth extends \Myth\Auth\Config\Auth
 	 *
 	 * @var string
 	 */
-	public $viewLayout = 'Views' . DIRECTORY_SEPARATOR . 'Auth' . DIRECTORY_SEPARATOR . 'layout';
+	public $viewLayout = 'App' . DIRECTORY_SEPARATOR . 'Views' . DIRECTORY_SEPARATOR . 'Auth' . DIRECTORY_SEPARATOR . 'layout';
 
 	/**
 	 * --------------------------------------------------------------------
