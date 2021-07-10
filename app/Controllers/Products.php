@@ -67,7 +67,7 @@ class Products extends BaseController
 
     public function addProduct()
     {
-        if (! $this->authorization->hasPermission('create', $this->authentication->id)){
+        if (! $this->authorization->hasPermission('create', $this->authentication->user()->id)){
             return $this->failForbidden("You don't have permissions to create new resources.");
         } else {
             $product_data = [
@@ -87,7 +87,7 @@ class Products extends BaseController
 
     public function editProduct()
     {
-        if (! $this->authorization->hasPermission('edit', $this->authentication->id)){
+        if (! $this->authorization->hasPermission('edit', $this->authentication->user()->id)){
             return $this->failForbidden("You don't have permissions to edit resources.");
         } else {
             $product_data = [
@@ -112,7 +112,7 @@ class Products extends BaseController
             return $this->failNotFound('Product ID cannot be null');
         }
 
-        if (! $this->authorization->hasPermission('delete', $this->authentication->id)){
+        if (! $this->authorization->hasPermission('delete', $this->authentication->user()->id)){
             return $this->failForbidden("You don't have permissions to delete resources.");
         } else {
             if ($this->productModel->delete($id))
