@@ -1,50 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Products - Codeigniter 4</title>
-	<meta name="description" content="The small framework with powerful features">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
-
-	<!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css') ?>">
-    <!-- Datatables CSS -->
-    <link rel="stylesheet" href="<?= base_url('css/dataTables.bootstrap5.min.css') ?>">
+    <?= view('_partials/header') ?>
+    <!-- DataTables -->
+    <link rel="stylesheet" href="<?= base_url('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>">
 </head>
 <body>
-    <?= view('_partials/navbar'); ?>
+    <?= view('_partials/navbar') ?>
+    <?= view('_partials/sidebar') ?>
 
-    <div class="container mt-4">
-        <div class="card">
-            <div class="card-body">
-                <?php if(has_permission('read')): ?>
-                <div class="row mb-3">
-                    <div class="col-12">
-                        <table id="product_table" class="table table-bordered" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th style="max-width:100px;">Product ID</th>
-                                    <th>Product Name</th>
-                                    <th>Product Price</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="d-grid gap-2">
-                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Add Product</button>
-                        </div>
-                    </div>
-                </div>
-                <?php else: ?>
-                <span>You don't have permissions to view resources.</span>
-                <?php endif; ?>
+    <div class="content-wrapper">
+        <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Products</h1>
+            </div>
             </div>
         </div>
+        </section>
+
+        <section class="content">
+            <div class="card">
+                <div class="card-body">
+                    <?php if(has_permission('read')): ?>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <table id="product_table" class="table table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="max-width:100px;">Product ID</th>
+                                        <th>Product Name</th>
+                                        <th>Product Price</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="button" class="btn btn-sm btn-primary btn-block" data-bs-toggle="modal" data-bs-target="#addModal">Add Product</button>
+                        </div>
+                    </div>
+                    <?php else: ?>
+                    <span>You don't have permissions to view resources.</span>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </section>
     </div>
 
     <div class="modal fade" id="addModal" role="dialog" arial-labelledby="addModalLabel" aria-hidden="true">
@@ -150,12 +156,21 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
-    <!-- JQuery and Datatables JS -->
-    <script src="<?= base_url('js/jquery-3.6.0.min.js') ?>"></script>
-    <script src="<?= base_url('js/jquery.dataTables.min.js') ?>"></script>
-    <script src="<?= base_url('js/dataTables.bootstrap5.min.js') ?>"></script>
+    <?= view('_partials/footer') ?>
+    <?= view('_partials/script') ?>
+    <!-- DataTables  & Plugins -->
+    <script src="<?= base_url('plugins/datatables/jquery.dataTables.min.js') ?>"></script>
+    <script src="<?= base_url('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
+    <script src="<?= base_url('plugins/datatables-responsive/js/dataTables.responsive.min.js') ?>"></script>
+    <script src="<?= base_url('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>"></script>
+    <script src="<?= base_url('plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>"></script>
+    <script src="<?= base_url('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>"></script>
+    <script src="<?= base_url('plugins/jszip/jszip.min.js') ?>"></script>
+    <script src="<?= base_url('plugins/pdfmake/pdfmake.min.js') ?>"></script>
+    <script src="<?= base_url('plugins/pdfmake/vfs_fonts.js') ?>"></script>
+    <script src="<?= base_url('plugins/datatables-buttons/js/buttons.html5.min.js') ?>"></script>
+    <script src="<?= base_url('plugins/datatables-buttons/js/buttons.print.min.js') ?>"></script>
+    <script src="<?= base_url('plugins/datatables-buttons/js/buttons.colVis.min.js') ?>"></script>
     <script>
         var product_table = null;
         var _deleteProductId = null;

@@ -1,27 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Dashboard - Codeigniter 4</title>
-	<meta name="description" content="The small framework with powerful features">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
-
-	<!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css') ?>">
+	<?= view('_partials/header') ?>
 </head>
 <body>
-    <?= view('_partials/navbar'); ?>
+    <?= view('_partials/navbar') ?>
+    <?= view('_partials/sidebar') ?>
 
-    <div class="container mt-4">
-        <div class="card">
-            <div class="card-body">
-                Welcome to main page.
-            </div>
+  <div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Dashboard</h1>
+          </div>
         </div>
-    </div>
+      </div>
+    </section>
 
-<!-- Bootstrap JS -->
-<script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
+    <section class="content">
+
+      <div class="card card-solid">
+        <div class="card-body">
+            <p>Welcome to Content Management System made with Codeigniter 4!</p>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+    <?= view('_partials/footer') ?>
+    <?= view('_partials/script') ?>
 </body>
 </html>
