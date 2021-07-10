@@ -42,7 +42,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <button type="button" class="btn btn-sm btn-primary btn-block" data-bs-toggle="modal" data-bs-target="#addModal">Add Product</button>
+                            <button type="button" class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target="#addModal">Add Product</button>
                         </div>
                     </div>
                     <?php else: ?>
@@ -58,7 +58,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addLabel">Add Product</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
 
                 <?php if(has_permission('create')): ?>
@@ -96,7 +98,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editLabel">Edit Product</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
 
                 <?php if(has_permission('create')): ?>
@@ -135,14 +139,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Delete Product</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <?php if(has_permission('delete')): ?>
                 <div class="modal-body target-edited">
                     Are you sure delete this product?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-danger" onclick="return deleteProduct()">Delete it!</button>
                 </div>
                 <?php else: ?>
@@ -196,8 +202,8 @@
                     { "render": function(data, type, row){
                         var a = "'"
                         var s = "', '"
-                        var html = '<a href="#editModal" data-bs-toggle="modal" onclick="return editProduct('+a+row.product_id+s+row.product_name+s+row.product_price+a+')"><span class="badge bg-success" data-toggle="tooltip" data-placement="top" title="Edit Product">Edit</span></a>&nbsp;'
-                        html += '<a href="#deleteConfirmationModal" data-bs-toggle="modal" onclick="return deleteConfirm('+a+row.product_id+s+row.product_name+a+')"><span class="badge bg-danger" data-toggle="tooltip" data-placement="top" title="Delete Product">Delete</span></a>'
+                        var html = '<a href="#editModal" data-toggle="modal" onclick="return editProduct('+a+row.product_id+s+row.product_name+s+row.product_price+a+')"><span class="badge bg-success" data-toggle="tooltip" data-placement="top" title="Edit Product">Edit</span></a>&nbsp;'
+                        html += '<a href="#deleteConfirmationModal" data-toggle="modal" onclick="return deleteConfirm('+a+row.product_id+s+row.product_name+a+')"><span class="badge bg-danger" data-toggle="tooltip" data-placement="top" title="Delete Product">Delete</span></a>'
                         return html
                     } }
                 ]
