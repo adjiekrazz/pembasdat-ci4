@@ -3,7 +3,7 @@
 <head>
     <?= view('_partials/header') ?>
 </head>
-<body>
+<body class="hold-transition sidebar-mini layout-fixed">
     <?= view('_partials/navbar'); ?>
     <?= view('_partials/sidebar'); ?>
 
@@ -19,15 +19,15 @@
         </section>
 
         <section class="content">
-
-        <div class="card card-solid">
-            <div class="card-body text-center">
-                Made with <br/>
-                CodeIgniter 4 <br/>
-                Arif Purnomo Aji - 1811012
+            <div class="container-fluid">
+                <div class="card card-solid">
+                    <div class="card-body text-center">
+                        Made with <br/>
+                        CodeIgniter 4 <br/>
+                        Arif Purnomo Aji - 1811012
+                    </div>
+                </div>
             </div>
-        </div>
-
         </section>
     </div>
 

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="<?= base_url('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>">
 </head>
-<body>
+<body class="hold-transition sidebar-mini layout-fixed">
     <?= view('_partials/navbar') ?>
     <?= view('_partials/sidebar') ?>
 
@@ -23,31 +23,33 @@
         </section>
 
         <section class="content">
-            <div class="card">
-                <div class="card-body">
-                    <?php if(has_permission('read')): ?>
-                    <div class="row mb-3">
-                        <div class="col-12">
-                            <table id="product_table" class="table table-bordered" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th style="max-width:100px;">Product ID</th>
-                                        <th>Product Name</th>
-                                        <th>Product Price</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                            </table>
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-body">
+                        <?php if(has_permission('read')): ?>
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <table id="product_table" class="table table-bordered" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="max-width:100px;">Product ID</th>
+                                            <th>Product Name</th>
+                                            <th>Product Price</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <button type="button" class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target="#addModal">Add Product</button>
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="button" class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target="#addModal">Add Product</button>
+                            </div>
                         </div>
+                        <?php else: ?>
+                        <span>You don't have permissions to view resources.</span>
+                        <?php endif; ?>
                     </div>
-                    <?php else: ?>
-                    <span>You don't have permissions to view resources.</span>
-                    <?php endif; ?>
                 </div>
             </div>
         </section>
