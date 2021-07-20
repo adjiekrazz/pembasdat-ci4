@@ -4,6 +4,7 @@
 <?= view('_partials/header') ?>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
+    <?= view('_partials/preloader') ?>
     <?= view('_partials/navbar'); ?>
     <?= view('_partials/sidebar'); ?>
 

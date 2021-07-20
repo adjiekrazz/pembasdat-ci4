@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="<?= base_url('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
+    <?= view('_partials/preloader') ?>
     <?= view('_partials/navbar') ?>
     <?= view('_partials/sidebar') ?>
 
