@@ -42,10 +42,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url('products') ?>" class="nav-link <?= uri_string(true) == 'products' ? 'active' : '' ?>">
+            <a href="<?= base_url('book') ?>" class="nav-link <?= uri_string(true) == 'book' ? 'active' : '' ?>">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Products
+                Book
               </p>
             </a>
           </li>
