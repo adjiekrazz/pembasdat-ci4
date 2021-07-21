@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ProductModel extends Model
+class BookModel extends Model
 {
 	protected $DBGroup              = 'default';
-	protected $table                = 'products';
-	protected $primaryKey           = 'product_id';
+	protected $table                = 'books';
+	protected $primaryKey           = 'id';
 	protected $useAutoIncrement     = true;
 	protected $insertID             = 0;
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = false;
 	protected $protectFields        = true;
-	protected $allowedFields        = ['product_name', 'product_price'];
+	protected $allowedFields        = ['code', 'title', 'year', 'author', 'publisher', 'publication_year', 'status'];
 
 	// Dates
 	protected $useTimestamps        = false;
@@ -24,7 +24,36 @@ class ProductModel extends Model
 	protected $deletedField         = 'deleted_at';
 
 	// Validation
-	protected $validationRules      = [];
+	protected $validationRules      = [
+		'code' => [
+			'label' => 'Code', 
+			'rules' => 'required|min_length[5]|' // should be is_unique[books.code], but it's buggy
+		],
+    	'title' => [
+			'label' => 'Title',
+			'rules'  => 'required'
+		],
+		'year' => [
+			'label' => 'Year',
+			'rules'  => 'integer|min_length[4]'
+		],
+		'author' => [
+			'label' => 'Author',
+			'rules' => 'string'
+		],
+		'publisher' => [
+			'label' => 'Publisher',
+			'rules' => 'string'
+		],
+		'publication_year' => [
+			'label' => 'Publication Year',
+			'rules'  => 'integer|min_length[4]'
+		],
+		'status' => [
+			'label' => 'Status',
+			'rules' => 'string'
+		],
+	];
 	protected $validationMessages   = [];
 	protected $skipValidation       = false;
 	protected $cleanValidationRules = true;
