@@ -27,7 +27,7 @@ class BookModel extends Model
 	protected $validationRules      = [
 		'code' => [
 			'label' => 'Code', 
-			'rules' => 'required|min_length[5]|' // should be is_unique[books.code], but it's buggy
+			'rules' => 'required|min_length[5]' // should be is_unique[books.code], but it's buggy
 		],
     	'title' => [
 			'label' => 'Title',
