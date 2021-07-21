@@ -17,7 +17,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Products</h1>
+                <h1>Books</h1>
             </div>
             </div>
         </div>
@@ -30,12 +30,16 @@
                         <?php if(has_permission('read')): ?>
                         <div class="row mb-3">
                             <div class="col-12">
-                                <table id="product_table" class="table table-bordered" style="width:100%">
+                                <table id="book_table" class="table table-bordered table-responsive" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th style="max-width:100px;">Product ID</th>
-                                            <th>Product Name</th>
-                                            <th>Product Price</th>
+                                            <th style="max-width:100px;">Code</th>
+                                            <th>Title</th>
+                                            <th>Year</th>
+                                            <th>Author</th>
+                                            <th>Publisher</th>
+                                            <th>Publication Year</th>
+                                            <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -44,7 +48,7 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <button type="button" class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target="#addModal">Add Product</button>
+                                <button type="button" class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target="#addModal">Add Book</button>
                             </div>
                         </div>
                         <?php else: ?>
@@ -60,7 +64,7 @@
         <div class="modal-dialog modal-dialog-centered modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addLabel">Add Product</h5>
+                    <h5 class="modal-title" id="addLabel">Add Book</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -68,21 +72,61 @@
 
                 <?php if(has_permission('create')): ?>
                 <div class="modal-body">
-                    <?= form_open('products/addProduct', 'id="addData" class="needs-validation"'); ?>
-                        <div class="mb-3">
-                            <label for="product_name" class="form-label">Product Name</label>
-                            <input type="text" class="form-control add-input" id="product_name" name="product_name" autocomplete="off">
-                            <div id="product_nameFeedback" class="form-feedback"></div>
+                    <?= form_open('book/addBook', 'id="addData" class="needs-validation"'); ?>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label for="code" class="form-label">Code * </label>
+                            <input type="text" class="form-control add-input" id="code" name="code" autocomplete="off">
+                            <div id="codeFeedback" class="form-feedback"></div>
                         </div>
-                        <div class="mb-3">
-                            <label for="product_price" class="form-label">Product Price</label>
-                            <input type="number" class="form-control add-input" id="product_price" name="product_price" autocomplete="off">
-                            <div id="product_priceFeedback" class="form-feedback"></div>
+                        <div class="form-group col-6">
+                            <label for="status" class="form-label">Status</label>
+                            <select name="status" id="status" class="custom-select add-input">
+                                <option value="Available">Available</option>
+                                <option value="Not Available">Not Available</option>
+                            </select>
+                            <div id="statusFeedback" class="form-feedback"></div>
                         </div>
-                        <div class="mb-3" style="text-align: center;">
-                            <button type="submit" class="btn btn-success">Add Product</button>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <label for="title" class="form-label">Title *</label>
+                            <input type="text" class="form-control add-input" id="title" name="title" autocomplete="off">
+                            <div id="titleFeedback" class="form-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <label for="author" class="form-label">Author</label>
+                            <input type="text" class="form-control add-input" id="author" name="author" autocomplete="off">
+                            <div id="authorFeedback" class="form-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <label for="publisher" class="form-label">Publisher</label>
+                            <input type="text" class="form-control add-input" id="publisher" name="publisher" autocomplete="off">
+                            <div id="publisherFeedback" class="form-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label for="year" class="form-label">Year</label>
+                            <input type="number" class="form-control add-input" id="year" name="year" autocomplete="off">
+                            <div id="yearFeedback" class="form-feedback"></div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="publication_year" class="form-label">Publication Year</label>
+                            <input type="number" class="form-control add-input" id="publication_year" name="publication_year" autocomplete="off">
+                            <div id="publication_yearFeedback" class="form-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-12" style="text-align: center;">
+                            <button type="submit" class="btn btn-success">Add Book</button>
                             <button type="reset" class="btn btn-danger">Clear</button>
                         </div>
+                    </div>
                     <?= form_close() ?>
                 </div>
                 <?php else: ?>
@@ -100,30 +144,70 @@
         <div class="modal-dialog modal-dialog-centered modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editLabel">Edit Product</h5>
+                    <h5 class="modal-title" id="editLabel">Edit Book</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
-                <?php if(has_permission('create')): ?>
+                <?php if(has_permission('update')): ?>
                 <div class="modal-body">
-                    <?= form_open('products/editProduct', 'id="editData" class="needs-validation"'); ?>
-                        <input type="hidden" name="product_id" id="product_id_edit">
-                        <div class="mb-3">
-                            <label for="product_name" class="form-label">Product Name</label>
-                            <input type="text" class="form-control edit-input" id="product_name_edit" name="product_name" autocomplete="off">
-                            <div id="product_nameEditFeedback" class="form-feedback"></div>
+                    <?= form_open('book/editBook', 'id="editData" class="needs-validation"'); ?>
+                    <input type="hidden" name="id" id="id_edit">
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label for="code" class="form-label">Code *</label>
+                            <input type="text" class="form-control edit-input" id="code_edit" name="code" autocomplete="off">
+                            <div id="codeEditFeedback" class="form-feedback"></div>
                         </div>
-                        <div class="mb-3">
-                            <label for="product_price" class="form-label">Product Price</label>
-                            <input type="number" class="form-control edit-input" id="product_price_edit" name="product_price" autocomplete="off">
-                            <div id="product_priceEditFeedback" class="form-feedback"></div>
+                        <div class="form-group col-6">
+                            <label for="status" class="form-label">Status</label>
+                            <select name="status" id="status_edit" class="custom-select edit-input">
+                                <option value="Available">Available</option>
+                                <option value="Not Available">Not Available</option>
+                            </select>
+                            <div id="statusFeedback" class="form-feedback"></div>
                         </div>
-                        <div class="mb-3" style="text-align: center;">
-                            <button type="submit" class="btn btn-success">Save Product</button>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <label for="title" class="form-label">Title *</label>
+                            <input type="text" class="form-control edit-input" id="title_edit" name="title" autocomplete="off">
+                            <div id="titleEditFeedback" class="form-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <label for="author" class="form-label">Author</label>
+                            <input type="text" class="form-control edit-input" id="author_edit" name="author" autocomplete="off">
+                            <div id="authorFeedback" class="form-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <label for="publisher" class="form-label">Publisher</label>
+                            <input type="text" class="form-control edit-input" id="publisher_edit" name="publisher" autocomplete="off">
+                            <div id="publisherFeedback" class="form-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label for="year" class="form-label">Year</label>
+                            <input type="number" class="form-control edit-input" id="year_edit" name="year" autocomplete="off">
+                            <div id="yearFeedback" class="form-feedback"></div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="publication_year" class="form-label">Publication Year</label>
+                            <input type="number" class="form-control edit-input" id="publication_year_edit" name="publication_year" autocomplete="off">
+                            <div id="publication_yearFeedback" class="form-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-12" style="text-align: center;">
+                            <button type="submit" class="btn btn-success">Save Book</button>
                             <button type="reset" class="btn btn-danger">Clear</button>
                         </div>
+                    </div>                        
                     <?= form_close() ?>
                 </div>
                 <?php else: ?>
@@ -141,18 +225,18 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Delete Product</h5>
+                    <h5 class="modal-title">Delete Book</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <?php if(has_permission('delete')): ?>
                 <div class="modal-body target-edited">
-                    Are you sure delete this product?
+                    Are you sure delete this book?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" onclick="return deleteProduct()">Delete it!</button>
+                    <button type="button" class="btn btn-danger" onclick="return deleteBook()">Delete it!</button>
                 </div>
                 <?php else: ?>
                 <div class="modal-body">
@@ -181,32 +265,36 @@
     <script src="<?= base_url('plugins/datatables-buttons/js/buttons.print.min.js') ?>"></script>
     <script src="<?= base_url('plugins/datatables-buttons/js/buttons.colVis.min.js') ?>"></script>
     <script>
-        var product_table = null;
-        var _deleteProductId = null;
+        var book_table = null;
+        var _deleteBookId = null;
         
-        loadProduct();
+        loadBook();
 
-        function loadProduct(){
-            product_table = $("#product_table").DataTable({
+        function loadBook(){
+            book_table = $("#book_table").DataTable({
                 "processing": true,
                 "serverSide": true,
                 "ordering": true,
                 "ajax": {
-                    "url": "products/getProducts",
+                    "url": "book/getBooks",
                     "type": "POST"
                 },
                 "columnDefs": [
                     { "targets": [0, 2, 3], "className": "text-center" }
                 ],
                 "columns": [
-                    { "data": "product_id" },
-                    { "data": "product_name" },
-                    { "data": "product_price" },
+                    { "data": "code" },
+                    { "data": "title" },
+                    { "data": "year" },
+                    { "data": "author" },
+                    { "data": "publisher" },
+                    { "data": "publication_year" },
+                    { "data": "status" },
                     { "render": function(data, type, row){
                         var a = "'"
                         var s = "', '"
-                        var html = '<a href="#editModal" data-toggle="modal" onclick="return editProduct('+a+row.product_id+s+row.product_name+s+row.product_price+a+')"><span class="badge bg-success" data-toggle="tooltip" data-placement="top" title="Edit Product">Edit</span></a>&nbsp;'
-                        html += '<a href="#deleteConfirmationModal" data-toggle="modal" onclick="return deleteConfirm('+a+row.product_id+s+row.product_name+a+')"><span class="badge bg-danger" data-toggle="tooltip" data-placement="top" title="Delete Product">Delete</span></a>'
+                        var html = '<a href="#editModal" data-toggle="modal" onclick="return editBook('+a+row.id+s+row.code+s+row.title+s+row.year+s+row.author+s+row.publisher+s+row.publication_year+s+row.status+a+')"><span class="badge bg-success" data-toggle="tooltip" data-placement="top" title="Edit Book">Edit</span></a>&nbsp;'
+                        html += '<a href="#deleteConfirmationModal" data-toggle="modal" onclick="return deleteConfirm('+a+row.id+s+row.title+a+')"><span class="badge bg-danger" data-toggle="tooltip" data-placement="top" title="Delete Book">Delete</span></a>'
                         return html
                     } }
                 ]
@@ -233,7 +321,7 @@
                 };
             }
 
-            var debounce = new $.fn.dataTable.Debounce(product_table);
+            var debounce = new $.fn.dataTable.Debounce(book_table);
         }
 
         $('#addData').submit(function(e){
@@ -241,13 +329,13 @@
             var fa = $(this);
 
             $.ajax({
-                url: 'products/addProduct',
+                url: 'book/addBook',
                 type: 'POST',
                 data: fa.serialize(),
                 dataType: 'JSON',
                 success: function(response) {
                     $('#addModal').modal('hide');
-                    product_table.ajax.reload();
+                    book_table.ajax.reload();
                     fa[0].reset()
                     $('.add-input').val('')
                 },
@@ -268,13 +356,17 @@
             })
         });
 
-        function editProduct(product_id, product_name, product_price){
+        function editBook(id, code, title, year, author, publisher, publication_year, status){
             $('#editModal').on('shown.bs.modal', function(event){
                 var modal = $(this);
-                modal.find('input[id="product_id_edit"]').val(product_id)
-                modal.find('input[id="product_name_edit"]').val(product_name)
-                modal.find('input[id="product_price_edit"]').val(product_price)
-
+                modal.find('input[id="id_edit"]').val(id)
+                modal.find('input[id="code_edit"]').val(code)
+                modal.find('input[id="title_edit"]').val(title)
+                modal.find('input[id="year_edit"]').val(year)
+                modal.find('input[id="author_edit"]').val(author)
+                modal.find('input[id="publisher_edit"]').val(publisher)
+                modal.find('input[id="publication_year_edit"]').val(publication_year)
+                modal.find('select[id="status_edit"]').val(status)
             });
         }
 
@@ -283,13 +375,13 @@
             var fa = $(this);
 
             $.ajax({
-                url: 'products/editProduct',
+                url: 'book/editBook',
                 type: 'POST',
                 data: fa.serialize(),
                 dataType: 'JSON',
                 success: function(response) {
                     $('#editModal').modal('hide');
-                    product_table.ajax.reload();
+                    book_table.ajax.reload();
                     fa[0].reset()
                     $('.edit-input').val('')
                 },
@@ -310,22 +402,22 @@
             })
         });
 
-        function deleteConfirm(product_id, product_name){
+        function deleteConfirm(id, title){
             $('#deleteConfirmationModal').on('shown.bs.modal', function(event){
                 var modal = $(this);
-                modal.find('div.target-edited').replaceWith("<div class='modal-body target-edited'>Are you sure delete product " + product_name + " ?</div>")
+                modal.find('div.target-edited').replaceWith("<div class='modal-body target-edited'>Are you sure delete book " + title + " ?</div>")
             });
-            _deleteProductId = product_id;
+            _deleteBookId = id;
         }
 
-        function deleteProduct(){
-            if (_deleteProductId){
+        function deleteBook(){
+            if (_deleteBookId){
                 $.ajax({
-                    url: "products/deleteProduct/" + _deleteProductId,
+                    url: "book/deleteBook/" + _deleteBookId,
                     type: "POST",
                     dataType: "JSON",
                     complete: function(response){
-                        product_table.ajax.reload();
+                        book_table.ajax.reload();
                         $('#deleteConfirmationModal').modal('hide');
                     }
                 })
