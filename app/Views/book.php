@@ -30,15 +30,15 @@
                         <?php if(has_permission('read')): ?>
                         <div class="row mb-3">
                             <div class="col-12">
-                                <table id="book_table" class="table table-bordered table-responsive" style="width:100%">
+                                <table id="book_table" class="table table-bordered table-sm" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th style="max-width:100px;">Code</th>
+                                            <th>Code</th>
                                             <th>Title</th>
                                             <th>Year</th>
                                             <th>Author</th>
                                             <th>Publisher</th>
-                                            <th>Publication Year</th>
+                                            <th>Pub. Year</th>
                                             <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
@@ -280,7 +280,7 @@
                     "type": "POST"
                 },
                 "columnDefs": [
-                    { "targets": [0, 2, 3], "className": "text-center" }
+                    { "targets": [0, 2, 3, 5], "className": "text-center" }
                 ],
                 "columns": [
                     { "data": "code" },
