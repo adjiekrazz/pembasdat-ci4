@@ -44,12 +44,12 @@ class Book extends BaseController
             if ($search)
             {
                 $books_query = $books_query->like('code', $search);
-                $books_query = $books_query->like('name', $search);
-                $books_query = $books_query->like('title', $search);
-                $books_query = $books_query->like('year', $search);
-                $books_query = $books_query->like('author', $search);
-                $books_query = $books_query->like('publisher', $search);
-                $books_query = $books_query->like('publication_year', $search);
+                $books_query = $books_query->orLike('title', $search);
+                $books_query = $books_query->orLike('year', $search);
+                $books_query = $books_query->orLike('author', $search);
+                $books_query = $books_query->orLike('publisher', $search);
+                $books_query = $books_query->orLike('publication_year', $search);
+                $books_query = $books_query->orLike('status', $search);
             }
             $books_data = $books_query->findAll($limit, $start);
             $books_filter_total = $books_query->countAll();
