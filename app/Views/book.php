@@ -336,8 +336,9 @@
                 success: function(response) {
                     $('#addModal').modal('hide');
                     book_table.ajax.reload();
-                    fa[0].reset()
-                    $('.add-input').val('')
+                    fa[0].reset();
+                    $('.add-input').val('');
+                    toastr.success('Book Added');
                 },
                 error: function(response){
                     $('.add-input').closest('input.form-control').removeClass('is-invalid')
@@ -382,8 +383,9 @@
                 success: function(response) {
                     $('#editModal').modal('hide');
                     book_table.ajax.reload();
-                    fa[0].reset()
-                    $('.edit-input').val('')
+                    fa[0].reset();
+                    $('.edit-input').val('');
+                    toastr.success('Book Updated');
                 },
                 error: function(response){
                     $('.edit-input').closest('input.form-control').removeClass('is-invalid')
@@ -419,6 +421,7 @@
                     complete: function(response){
                         book_table.ajax.reload();
                         $('#deleteConfirmationModal').modal('hide');
+                        toastr.success('Book Deleted');
                     }
                 })
             }

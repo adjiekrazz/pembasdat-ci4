@@ -8,5 +8,7 @@
 <link rel="stylesheet" href="<?= base_url('plugins/fontawesome-free/css/all.min.css') ?>">
 <!-- icheck bootstrap -->
 <link rel="stylesheet" href="<?= base_url('plugins/icheck-bootstrap/icheck-bootstrap.min.css') ?>">
+<!-- Toastr -->
+<link rel="stylesheet" href="../../plugins/toastr/toastr.min.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="<?= base_url('css/adminlte.min.css') ?>">
